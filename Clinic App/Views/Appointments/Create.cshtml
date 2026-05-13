@@ -1,0 +1,96 @@
+@model CreateAppointmentDto
+
+@{
+    ViewData["Title"] = "Book Appointment";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Book Appointment</h1>
+        <p class="page-subtitle">Schedule a new appointment with a healthcare professional.</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i>
+        Back to Appointments
+    </a>
+</div>
+
+<div class="card card-surface">
+    <div class="card-body">
+        <form asp-action="Create" method="post" class="row g-3">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="@(isAdmin ? "col-md-6" : "col-12")">
+                <div class="form-floating">
+                    <select asp-for="DoctorId" class="form-select">
+                        <option value="">Select a doctor</option>
+                        @if (ViewBag.Doctors != null)
+                        {
+                            @foreach (var doctor in ViewBag.Doctors)
+                            {
+                                <option value="@doctor.Value">@doctor.Text</option>
+                            }
+                        }
+                    </select>
+                    <label asp-for="DoctorId">Healthcare Provider</label>
+                </div>
+                <span asp-validation-for="DoctorId" class="text-danger small"></span>
+            </div>
+
+            @if (isAdmin)
+            {
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <select asp-for="PatientId" class="form-select">
+                            <option value="">Select a patient</option>
+                            @if (ViewBag.Patients != null)
+                            {
+                                @foreach (var patient in ViewBag.Patients)
+                                {
+                                    <option value="@patient.Value">@patient.Text</option>
+                                }
+                            }
+                        </select>
+                        <label asp-for="PatientId">Patient</label>
+                    </div>
+                    <span asp-validation-for="PatientId" class="text-danger small"></span>
+                </div>
+            }
+
+            <div class="col-12">
+                <div class="form-floating">
+                    @{
+                        var now = DateTime.Now;
+                        var minDateTime = now.ToString("yyyy-MM-ddTHH:mm");
+                        var currentValue = Model.AppointmentDate == DateTime.MinValue ? now.ToString("yyyy-MM-ddTHH:mm") : Model.AppointmentDate.ToString("yyyy-MM-ddTHH:mm");
+                    }
+                    <input asp-for="AppointmentDate" type="datetime-local" class="form-control" min="@minDateTime" value="@currentValue" />
+                    <label asp-for="AppointmentDate">Appointment Date & Time</label>
+                </div>
+                <span asp-validation-for="AppointmentDate" class="text-danger small"></span>
+            </div>
+
+            <div class="col-12">
+                <div class="form-floating">
+                    <textarea asp-for="Notes" class="form-control" placeholder="Symptoms or notes" style="height: 120px"></textarea>
+                    <label asp-for="Notes">Symptoms or Notes (optional)</label>
+                </div>
+                <span asp-validation-for="Notes" class="text-danger small"></span>
+            </div>
+
+            <div class="col-12 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check2-circle"></i>
+                    Book Appointment
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="Clinic App/ClinicApp.Presentation.csproj" />
+  <Project Path="ClinicApp.Business/ClinicApp.Business.csproj" />
+  <Project Path="ClinicApp.Data/ClinicApp.Data.csproj" />
+</Solution>

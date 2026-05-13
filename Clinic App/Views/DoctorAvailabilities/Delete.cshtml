@@ -1,0 +1,61 @@
+@model DoctorAvailabilityListDto
+
+@{
+    ViewData["Title"] = "Delete Availability";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Delete Availability</h1>
+        <p class="page-subtitle">Are you sure you want to remove this working schedule?</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i>
+        Back to Availability
+    </a>
+</div>
+
+<div class="card card-surface">
+    <div class="card-body">
+        <div class="alert alert-warning" role="alert">
+            <i class="bi bi-exclamation-triangle"></i>
+            <strong>Warning!</strong> This availability record will be removed from active schedules.
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-muted small">Doctor Name</label>
+                <p class="form-control-plaintext fw-semibold">@Model.DoctorName</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-muted small">Day Of Week</label>
+                <p class="form-control-plaintext fw-semibold">@Model.DayOfWeek</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label text-muted small">Start Time</label>
+                <p class="form-control-plaintext fw-semibold">@Model.StartTime.ToString("HH:mm")</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label text-muted small">End Time</label>
+                <p class="form-control-plaintext fw-semibold">@Model.EndTime.ToString("HH:mm")</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label text-muted small">Slot Duration</label>
+                <p class="form-control-plaintext fw-semibold">@Model.SlotDurationInMinutes minutes</p>
+            </div>
+        </div>
+
+        <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post" class="d-flex gap-2"
+              data-confirm
+              data-confirm-title="Delete availability?"
+              data-confirm-text="This working schedule will be removed from active records."
+              data-confirm-button="Yes, delete it">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+                Delete Availability
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

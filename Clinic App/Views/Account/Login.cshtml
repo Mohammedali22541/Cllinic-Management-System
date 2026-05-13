@@ -1,0 +1,76 @@
+@model LoginDto
+
+@{
+    ViewData["Title"] = "Sign In";
+}
+
+<div class="auth-split">
+    <section class="auth-panel">
+        <div class="auth-brand-mark">
+            <i class="bi bi-hospital"></i>
+        </div>
+        <p class="auth-eyebrow">Clinic Management System</p>
+        <h1>Welcome back to your care workspace.</h1>
+        <p class="auth-lead">Manage appointments, patient records, and daily clinic work from a calm, secure dashboard.</p>
+        <div class="auth-benefits">
+            <div><i class="bi bi-calendar2-check"></i><span>Book and track visits</span></div>
+            <div><i class="bi bi-person-vcard"></i><span>Keep your patient profile ready</span></div>
+            <div><i class="bi bi-shield-check"></i><span>Role-based access for staff and patients</span></div>
+        </div>
+    </section>
+
+    <section class="auth-form-panel">
+        <div class="auth-card auth-card-modern">
+            <div class="auth-card-body">
+                <div class="mb-4">
+                    <p class="auth-eyebrow text-primary mb-2">Sign in</p>
+                    <h2 class="fw-bold mb-2">Access your account</h2>
+                    <p class="text-muted mb-0">Use your clinic account email and password.</p>
+                </div>
+
+                <form asp-action="Login" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+
+                    @if (ViewData.ModelState.Values.Any(v => v.Errors.Count > 0))
+                    {
+                        <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            <div asp-validation-summary="ModelOnly"></div>
+                        </div>
+                    }
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control auth-input" placeholder="name@example.com" />
+                        <label asp-for="Email"><i class="bi bi-envelope me-2"></i>Email Address</label>
+                        <span asp-validation-for="Email" class="text-danger small d-block mt-1"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" type="password" class="form-control auth-input" placeholder="Password" />
+                        <label asp-for="Password"><i class="bi bi-lock me-2"></i>Password</label>
+                        <span asp-validation-for="Password" class="text-danger small d-block mt-1"></span>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input asp-for="RememberMe" class="form-check-input" id="rememberMe" />
+                        <label asp-for="RememberMe" class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-auth btn-lg w-100">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                    </button>
+
+                    <p class="text-center text-muted small mb-0 mt-4">
+                        New here?
+                        <a asp-action="Register" class="fw-semibold">Create your account</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,862 @@
+html[data-theme="light"],
+:root {
+    color-scheme: light;
+    --app-bg: #f4f7fb;
+    --app-surface: #ffffff;
+    --app-surface-alt: #eef2f8;
+    --app-text: #0f172a;
+    --app-text-secondary: #475569;
+    --app-muted: #64748b;
+    --app-border: #e2e8f0;
+    --app-primary: #2563eb;
+    --app-primary-soft: rgba(37, 99, 235, 0.12);
+    --app-primary-hover-bg: #1d4ed8;
+    --app-primary-hover-text: #ffffff;
+    --app-warning-hover-bg: #d97706;
+    --app-warning-hover-text: #ffffff;
+    --app-danger-hover-bg: #dc2626;
+    --app-danger-hover-text: #ffffff;
+    --app-success: #16a34a;
+    --app-warning: #f59e0b;
+    --app-danger: #dc2626;
+    --app-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    --app-sidebar-bg: #0f172a;
+    --app-sidebar-text: #e2e8f0;
+    --app-sidebar-muted: #94a3b8;
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --app-bg: #0b1220;
+    --app-surface: #111827;
+    --app-surface-alt: #1f2937;
+    --app-text: #e5e7eb;
+    --app-text-secondary: #b4bcc4;
+    --app-muted: #9ca3af;
+    --app-border: #243041;
+    --app-primary: #60a5fa;
+    --app-primary-soft: rgba(96, 165, 250, 0.18);
+    --app-primary-hover-bg: #3b82f6;
+    --app-primary-hover-text: #ffffff;
+    --app-warning-hover-bg: #fbbf24;
+    --app-warning-hover-text: #111827;
+    --app-danger-hover-bg: #f87171;
+    --app-danger-hover-text: #111827;
+    --app-success: #22c55e;
+    --app-warning: #fbbf24;
+    --app-danger: #f87171;
+    --app-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    --app-sidebar-bg: #0b1324;
+    --app-sidebar-text: #e2e8f0;
+    --app-sidebar-muted: #94a3b8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+    background-color: var(--app-bg);
+    color: var(--app-text);
+    margin: 0;
+    min-height: 100vh;
+}
+
+html[data-theme="light"],
+html[data-theme="dark"] {
+    --bs-body-bg: var(--app-bg);
+    --bs-body-color: var(--app-text);
+    --bs-secondary-color: var(--app-muted);
+    --bs-tertiary-bg: var(--app-surface-alt);
+    --bs-border-color: var(--app-border);
+    --bs-emphasis-color: var(--app-text);
+    --bs-card-bg: var(--app-surface);
+    --bs-card-color: var(--app-text);
+    --bs-dropdown-bg: var(--app-surface);
+    --bs-dropdown-color: var(--app-text);
+    --bs-dropdown-link-color: var(--app-text);
+    --bs-dropdown-link-hover-bg: var(--app-surface-alt);
+    --bs-dropdown-link-hover-color: var(--app-text);
+    --bs-table-color: var(--app-text);
+    --bs-table-bg: transparent;
+}
+
+a {
+    text-decoration: none;
+}
+
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--app-bg);
+}
+
+.app-sidebar {
+    width: 260px;
+    background: var(--app-sidebar-bg);
+    color: var(--app-sidebar-text);
+    padding: 1.75rem 1.5rem;
+    gap: 2rem;
+}
+
+    .app-sidebar .nav-link {
+        color: var(--app-sidebar-muted);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.65rem 0.9rem;
+        border-radius: 0.75rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+        .app-sidebar .nav-link.active,
+        .app-sidebar .nav-link:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+        }
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.brand-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+}
+
+.brand-title {
+    display: block;
+    font-weight: 600;
+    color: #fff;
+}
+
+.brand-subtitle {
+    color: var(--app-sidebar-muted);
+    font-size: 0.75rem;
+}
+
+.app-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.app-topbar {
+    background: var(--app-surface);
+    border-bottom: 1px solid var(--app-border);
+    padding: 1rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.app-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--app-text);
+}
+
+.app-subtitle {
+    font-size: 0.8rem;
+    color: var(--app-muted);
+}
+
+.app-content {
+    padding: 2rem 1.75rem 2.5rem;
+}
+
+.btn-icon {
+    border: 1px solid var(--app-border);
+    background: var(--app-surface-alt);
+    color: var(--app-text);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.page-subtitle {
+    color: var(--app-muted);
+    margin-bottom: 0;
+}
+
+.card-surface {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: 1.25rem;
+    box-shadow: var(--app-shadow);
+    color: var(--app-text);
+}
+
+    .card-surface .card-body {
+        padding: 1.5rem;
+    }
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--app-text);
+    --bs-table-striped-bg: var(--app-surface-alt);
+    --bs-table-striped-color: var(--app-text);
+    --bs-table-hover-bg: var(--app-primary-soft);
+    --bs-table-hover-color: var(--app-text);
+    border-color: var(--app-border);
+    color: var(--app-text);
+}
+
+    .table thead th {
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        color: var(--app-muted);
+    }
+
+    .table tbody td {
+        vertical-align: middle;
+    }
+
+.form-control,
+.form-select,
+.form-floating > .form-control,
+.form-floating > .form-select,
+textarea.form-control {
+    background: var(--app-surface);
+    border-color: var(--app-border);
+    color: var(--app-text);
+    transition: all 0.2s ease;
+}
+
+.input-group-text {
+    background: var(--app-surface);
+    border-color: var(--app-border);
+    color: var(--app-muted);
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+    border-color: var(--app-primary);
+    background: var(--app-surface);
+    color: var(--app-text);
+    box-shadow: 0 0 0 0.2rem var(--app-primary-soft);
+}
+
+.form-control::placeholder {
+    color: var(--app-muted);
+}
+
+.form-select option {
+    background: var(--app-surface);
+    color: var(--app-text);
+}
+
+.form-floating > label {
+    color: var(--app-muted);
+}
+
+.form-check-input {
+    background: var(--app-surface-alt);
+    border: 1px solid var(--app-border);
+    cursor: pointer;
+}
+
+    .form-check-input:checked {
+        background: var(--app-primary);
+        border-color: var(--app-primary);
+    }
+
+    .form-check-input:focus {
+        border-color: var(--app-primary);
+        box-shadow: 0 0 0 0.25rem var(--app-primary-soft);
+    }
+
+.form-check-label {
+    color: var(--app-text);
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.btn {
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--app-primary);
+    border-color: var(--app-primary);
+    color: white;
+}
+
+    .btn-primary:hover {
+        background: var(--app-primary);
+        border-color: var(--app-primary);
+        filter: brightness(1.1);
+    }
+
+.btn-outline-primary {
+    color: var(--app-primary);
+    border-color: var(--app-primary);
+}
+
+    .btn-outline-primary:hover {
+        background-color: var(--app-primary-hover-bg);
+        border-color: var(--app-primary-hover-bg);
+        color: var(--app-primary-hover-text);
+    }
+
+.btn-outline-secondary {
+    color: var(--app-text);
+    border-color: var(--app-border);
+}
+
+    .btn-outline-secondary:hover {
+        background: var(--app-surface-alt);
+        color: var(--app-text);
+        border-color: var(--app-border);
+    }
+
+.btn-outline-danger {
+    color: var(--app-danger);
+    border-color: var(--app-border);
+}
+
+    .btn-outline-danger:hover {
+        background: var(--app-danger-hover-bg);
+        color: var(--app-danger-hover-text);
+        border-color: var(--app-danger-hover-bg);
+    }
+
+.btn-outline-warning {
+    color: var(--app-warning);
+    border-color: var(--app-border);
+}
+
+    .btn-outline-warning:hover {
+        background: var(--app-warning-hover-bg);
+        color: var(--app-warning-hover-text);
+        border-color: var(--app-warning-hover-bg);
+    }
+
+        .btn-outline-primary:hover i,
+        .btn-outline-warning:hover i,
+        .btn-outline-danger:hover i {
+            color: inherit;
+        }
+
+.invalid-feedback,
+.valid-feedback {
+    display: block;
+    margin-top: 0.25rem;
+}
+
+.invalid-feedback {
+    color: var(--app-danger);
+}
+
+.valid-feedback {
+    color: var(--app-success);
+}
+
+.alert {
+    border-radius: 0.85rem;
+    border: none;
+}
+
+.alert-danger {
+    background: rgba(220, 38, 38, 0.15);
+    color: var(--app-danger);
+}
+
+.alert-success {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--app-success);
+}
+
+.alert-warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--app-warning);
+}
+
+.alert-info {
+    background: rgba(37, 99, 235, 0.15);
+    color: var(--app-primary);
+}
+
+.user-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--app-surface-alt);
+    border: 1px solid var(--app-border);
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--app-text);
+}
+
+.badge-soft-primary {
+    background: var(--app-primary-soft);
+    color: var(--app-primary);
+}
+
+.badge-soft-success {
+    background: rgba(34, 197, 94, 0.18);
+    color: var(--app-success);
+}
+
+.badge-soft-warning {
+    background: rgba(245, 158, 11, 0.18);
+    color: var(--app-warning);
+}
+
+.badge-soft-danger {
+    background: rgba(220, 38, 38, 0.18);
+    color: var(--app-danger);
+}
+
+.auth-split {
+    min-height: calc(100vh - 150px);
+    display: grid;
+    grid-template-columns: minmax(280px, 0.95fr) minmax(320px, 1.05fr);
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+.auth-panel,
+.auth-form-panel {
+    border-radius: 1.25rem;
+}
+
+.auth-panel {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    background: radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.24), transparent 28%), linear-gradient(135deg, #0f766e 0%, #2563eb 58%, #4f46e5 100%);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .auth-panel::after {
+        content: "";
+        position: absolute;
+        right: -80px;
+        bottom: -80px;
+        width: 220px;
+        height: 220px;
+        border: 28px solid rgba(255, 255, 255, 0.14);
+        border-radius: 50%;
+    }
+
+.auth-brand-mark {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.16);
+    font-size: 1.7rem;
+    margin-bottom: 1.5rem;
+}
+
+.auth-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.74rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.auth-panel h1 {
+    max-width: 620px;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    line-height: 1.05;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.auth-lead {
+    max-width: 560px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+}
+
+.auth-benefits {
+    display: grid;
+    gap: 0.9rem;
+    position: relative;
+    z-index: 1;
+}
+
+    .auth-benefits div {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        color: rgba(255, 255, 255, 0.92);
+    }
+
+    .auth-benefits i {
+        width: 34px;
+        height: 34px;
+        display: inline-grid;
+        place-items: center;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.14);
+    }
+
+.auth-form-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--app-surface-alt);
+    padding: clamp(1.25rem, 3vw, 3rem);
+}
+
+.auth-card {
+    width: 100%;
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    box-shadow: var(--app-shadow);
+    color: var(--app-text);
+}
+
+.auth-card-modern {
+    max-width: 500px;
+    border-radius: 1.25rem;
+}
+
+.auth-card-body {
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.auth-input {
+    min-height: 58px;
+}
+
+.auth-card .form-floating > .form-control,
+.auth-card .form-floating > .form-control:focus,
+.auth-card .form-floating > .form-control:not(:placeholder-shown) {
+    background-color: var(--app-surface);
+    color: var(--app-text);
+}
+
+.auth-card .form-floating > label {
+    color: var(--app-muted);
+    background: transparent;
+}
+
+    .auth-card .form-floating > label::after {
+        background-color: var(--app-surface);
+        border-radius: 0.5rem;
+    }
+
+.auth-card .form-floating > .form-control:focus ~ label,
+.auth-card .form-floating > .form-control:not(:placeholder-shown) ~ label {
+    color: var(--app-primary);
+}
+
+.auth-card .form-floating > .form-control:-webkit-autofill ~ label::after {
+    background-color: var(--app-surface);
+}
+
+.btn-auth {
+    padding: 0.85rem;
+    font-weight: 700;
+    border-radius: 0.85rem;
+}
+
+.profile-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    background: var(--app-primary-soft);
+    color: var(--app-primary);
+    font-size: 1.55rem;
+}
+
+.profile-tip {
+    display: flex;
+    gap: 0.85rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--app-border);
+}
+
+    .profile-tip:last-child {
+        border-bottom: 0;
+    }
+
+    .profile-tip > i {
+        color: var(--app-primary);
+        font-size: 1.35rem;
+    }
+
+.empty-state {
+    text-align: center;
+    color: var(--app-muted);
+    padding: 2rem 1rem;
+}
+
+.toast {
+    border-radius: 0.85rem;
+    box-shadow: var(--app-shadow);
+}
+
+.toast,
+.toast-header,
+.toast-body {
+    color: var(--app-text);
+}
+
+.toast-header {
+    background: var(--app-surface);
+    border-bottom: 1px solid var(--app-border);
+}
+
+.text-bg-success .toast-body,
+.text-bg-danger .toast-body {
+    color: #ffffff;
+}
+
+.app-sidebar-mobile .nav-link {
+    color: var(--app-text);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: 0.75rem;
+}
+
+    .app-sidebar-mobile .nav-link.active,
+    .app-sidebar-mobile .nav-link:hover {
+        background: var(--app-primary-soft);
+        color: var(--app-primary);
+    }
+
+/* Modal dark mode support */
+.modal-content {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    color: var(--app-text);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--app-border);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--app-border);
+}
+
+.modal-title {
+    color: var(--app-text);
+}
+
+.btn-close {
+    filter: brightness(0.8);
+}
+
+html[data-theme="dark"] .btn-close {
+    filter: brightness(1.2);
+}
+
+/* Dropdown menu dark mode support */
+.dropdown-menu {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    box-shadow: var(--app-shadow);
+}
+
+.dropdown-header,
+.dropdown-divider {
+    color: var(--app-muted);
+    border-color: var(--app-border);
+}
+
+.dropdown-item {
+    color: var(--app-text);
+}
+
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+        background: var(--app-surface-alt);
+        color: var(--app-text);
+    }
+
+/* Badge styles */
+.badge {
+    font-weight: 500;
+}
+
+/* Table dark mode enhancements */
+.table thead th {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--app-muted);
+    border-bottom: 1px solid var(--app-border);
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--app-border);
+}
+
+    .table tbody tr:hover {
+        background: var(--app-primary-soft);
+    }
+
+/* Spinner styles */
+.spinner-border {
+    border-color: var(--app-primary);
+}
+
+    .spinner-border .spinner-border-sm {
+        border-width: 0.25em;
+    }
+
+/* Pagination */
+.pagination .page-link {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    color: var(--app-text);
+}
+
+    .pagination .page-link:hover {
+        background: var(--app-surface-alt);
+        color: var(--app-text);
+    }
+
+.pagination .page-item.active .page-link {
+    background: var(--app-primary);
+    border-color: var(--app-primary);
+}
+
+/* Link styles */
+a {
+    color: var(--app-primary);
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+/* Card hover effect */
+.card-surface {
+    transition: all 0.3s ease;
+}
+
+    .card-surface:hover {
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+    }
+
+/* Dashboard stat card */
+.stat-card {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--app-shadow);
+    }
+
+/* Form grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Dashboard Quick Action Buttons */
+.btn-outline-primary strong,
+.btn-outline-primary .text-muted,
+.btn-outline-primary i {
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    background-color: var(--app-primary-hover-bg);
+    border-color: var(--app-primary-hover-bg);
+    color: var(--app-primary-hover-text);
+}
+
+    .btn-outline-primary:hover .text-muted,
+    .btn-outline-primary:focus .text-muted {
+        color: var(--app-primary-hover-text) !important;
+        opacity: 0.92;
+    }
+
+/* Override Bootstrap text utilities for theme consistency */
+.text-muted {
+    color: var(--app-muted) !important;
+}
+
+.text-secondary {
+    color: var(--app-text-secondary) !important;
+}
+
+.text-dark {
+    color: var(--app-text) !important;
+}
+
+.text-light {
+    color: var(--app-text) !important;
+}
+
+/* Ensure form labels are visible */
+.form-label,
+.form-floating > label {
+    color: var(--app-text);
+}
+
+@media (max-width: 991px) {
+    .app-content {
+        padding: 1.5rem 1.25rem 2rem;
+    }
+
+    .auth-split {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-panel {
+        min-height: 360px;
+    }
+}

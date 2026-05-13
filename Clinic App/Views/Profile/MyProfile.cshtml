@@ -1,0 +1,99 @@
+@model PatientProfileDto
+
+@{
+    ViewData["Title"] = "My Profile";
+    var hasProfile = Model.Id > 0;
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">My Profile</h1>
+        <p class="page-subtitle">Keep your patient details ready for appointment booking.</p>
+    </div>
+    <a asp-controller="Appointments" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-calendar-plus me-1"></i>
+        Book Appointment
+    </a>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card card-surface">
+            <div class="card-body">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="profile-avatar">
+                        <i class="bi bi-person-heart"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Patient Information</h5>
+                        <p class="text-muted mb-0">@(hasProfile ? "Update your profile any time." : "Complete this once before booking.")</p>
+                    </div>
+                </div>
+
+                <form asp-action="MyProfile" method="post" class="row g-3">
+                    @Html.AntiForgeryToken()
+                    <input asp-for="Id" type="hidden" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input asp-for="Name" class="form-control" placeholder="Full name" />
+                            <label asp-for="Name">Full Name</label>
+                        </div>
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="Phone" class="form-control" placeholder="Phone number" />
+                            <label asp-for="Phone">Phone Number</label>
+                        </div>
+                        <span asp-validation-for="Phone" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input asp-for="Age" class="form-control" placeholder="Age" />
+                            <label asp-for="Age">Age</label>
+                        </div>
+                        <span asp-validation-for="Age" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-12 d-flex flex-wrap gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check2-circle me-1"></i>
+                            Save Profile
+                        </button>
+                        <a asp-controller="Appointments" asp-action="Index" class="btn btn-outline-secondary">My Appointments</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card card-surface h-100">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Why This Matters</h5>
+                <div class="profile-tip">
+                    <i class="bi bi-shield-check"></i>
+                    <div>
+                        <strong>Private to your account</strong>
+                        <p class="text-muted mb-0">Your appointments use this profile automatically, so you do not need to pick yourself from a patient list.</p>
+                    </div>
+                </div>
+                <div class="profile-tip">
+                    <i class="bi bi-calendar2-check"></i>
+                    <div>
+                        <strong>Faster booking</strong>
+                        <p class="text-muted mb-0">Once saved, booking only needs a doctor and appointment time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

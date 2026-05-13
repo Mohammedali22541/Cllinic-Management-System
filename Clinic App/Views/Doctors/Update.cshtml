@@ -1,0 +1,68 @@
+﻿@model UpdateDoctorDto
+
+@{
+    ViewData["Title"] = "Update Doctor";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Update Doctor</h1>
+        <p class="page-subtitle">Keep specialist data accurate and up to date.</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i>
+        Back to Doctors
+    </a>
+</div>
+
+<div class="card card-surface">
+    <div class="card-body">
+        <form asp-action="Update" asp-route-id="@Model.Id" method="post" class="row g-3">
+            @Html.AntiForgeryToken()
+            <input asp-for="Id" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input asp-for="Name" class="form-control" placeholder="Dr. Name" />
+                    <label asp-for="Name"></label>
+                </div>
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input asp-for="Phone" class="form-control" placeholder="Phone" />
+                    <label asp-for="Phone"></label>
+                </div>
+                <span asp-validation-for="Phone" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <select asp-for="Specialization" class="form-select">
+                        @foreach (Specialization specialization in Enum.GetValues(typeof(Specialization)))
+                        {
+                            <option value="@specialization">@specialization</option>
+                        }
+                    </select>
+                    <label asp-for="Specialization"></label>
+                </div>
+                <span asp-validation-for="Specialization" class="text-danger small"></span>
+            </div>
+
+            <div class="col-12 d-flex flex-wrap gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check2-circle"></i>
+                    Update Doctor
+                </button>
+                <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">View Details</a>
+                <a asp-action="Index" class="btn btn-light">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

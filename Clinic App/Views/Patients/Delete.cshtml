@@ -1,0 +1,53 @@
+@model PatientDetailsDto
+
+@{
+    ViewData["Title"] = "Delete Patient";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Delete Patient</h1>
+        <p class="page-subtitle">Are you sure you want to delete this patient?</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i>
+        Back to Patients
+    </a>
+</div>
+
+<div class="card card-surface">
+    <div class="card-body">
+        <div class="alert alert-warning" role="alert">
+            <i class="bi bi-exclamation-triangle"></i>
+            <strong>Warning!</strong> This action cannot be undone. All patient data will be permanently deleted.
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-muted small">Patient Name</label>
+                <p class="form-control-plaintext fw-semibold">@Model.Name</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-muted small">Age</label>
+                <p class="form-control-plaintext fw-semibold">@Model.Age years</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label text-muted small">Phone Number</label>
+                <p class="form-control-plaintext fw-semibold">@Model.Phone</p>
+            </div>
+        </div>
+
+        <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post" class="d-flex gap-2"
+              data-confirm
+              data-confirm-title="Delete patient?"
+              data-confirm-text="This patient will be removed from active records."
+              data-confirm-button="Yes, delete it">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i>
+                Delete Patient
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

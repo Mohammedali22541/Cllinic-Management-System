@@ -1,0 +1,80 @@
+@model IEnumerable<GetAllPatientListDto>
+
+@{
+    ViewData["Title"] = "Patients";
+    var hasRecords = Model?.Any() == true;
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Patients</h1>
+        <p class="page-subtitle">Manage patient records and medical information.</p>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i>
+            Add Patient
+        </a>
+    </div>
+</div>
+
+<div class="card card-surface mb-4">
+    <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <div>
+            <h5 class="mb-1">Patient Registry</h5>
+            <p class="text-muted mb-0">Search, review, and manage patient records.</p>
+        </div>
+        <div class="flex-grow-1 flex-md-grow-0" style="min-width: 260px;">
+            <div class="input-group">
+                <span class="input-group-text bg-transparent">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input class="form-control" data-search-table="#patientsTable" placeholder="Search patients by name, phone, or age" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-surface">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle mb-0" id="patientsTable">
+            <thead>
+                <tr>
+                    <th class="ps-4">Name</th>
+                    <th>Age</th>
+                    <th>Phone</th>
+                    <th class="text-end pe-4">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (hasRecords)
+                {
+                    foreach (var patient in Model!)
+                    {
+                        <tr>
+                            <td class="ps-4 fw-semibold">@patient.Name</td>
+                            <td>@patient.Age years</td>
+                            <td>@patient.Phone</td>
+                            <td class="pe-4">
+                                <div class="d-flex flex-wrap justify-content-end gap-2">
+                                    <a asp-action="Details" asp-route-id="@patient.Id" class="btn btn-sm rounded-2 btn-outline-primary" title="View Details">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="Update" asp-route-id="@patient.Id" class="btn btn-sm rounded-2 btn-outline-warning" title="Edit Patient">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@patient.Id" class="btn btn-sm rounded-2 btn-outline-danger" title="Delete Patient">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                <tr data-empty-row class="@(hasRecords ? "d-none" : string.Empty)">
+                    <td colspan="4" class="empty-state">No patients found. Add a new patient to get started.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
